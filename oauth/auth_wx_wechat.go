@@ -2,8 +2,8 @@ package oauth
 
 import (
 	"errors"
-	"go-thirdparty/result"
-	"go-thirdparty/utils"
+	"github.com/scpzc/go-thirdparty/result"
+	"github.com/scpzc/go-thirdparty/utils"
 )
 
 // 微信授权登录（第三方应用）

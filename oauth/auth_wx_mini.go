@@ -3,9 +3,9 @@ package oauth
 import (
 	"encoding/json"
 	"errors"
+	"github.com/scpzc/go-thirdparty/result"
+	"github.com/scpzc/go-thirdparty/utils"
 	"github.com/xlstudio/wxbizdatacrypt"
-	"go-thirdparty/result"
-	"go-thirdparty/utils"
 )
 
 // 微信小程序授权登录（微信小程序）
