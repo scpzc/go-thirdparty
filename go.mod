@@ -1,4 +1,4 @@
-module go-thirdparty
+module github.com/scpzc/go-thirdparty
 
 go 1.19
 
