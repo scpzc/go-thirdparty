@@ -2,13 +2,13 @@ package oauth
 
 import (
 	"errors"
-	"github.com/geiqin/thirdparty/result"
-	"github.com/geiqin/thirdparty/utils"
+	"go-thirdparty/result"
+	"go-thirdparty/utils"
 	"strconv"
 	"strings"
 )
 
-//QQ授权登录
+// QQ授权登录
 type AuthQq struct {
 	BaseRequest
 }
@@ -25,8 +25,8 @@ func NewAuthQq(conf *AuthConfig) *AuthQq {
 	return authRequest
 }
 
-//获取登录地址
-func (a *AuthQq) GetRedirectUrl(state string) (string) {
+// 获取登录地址
+func (a *AuthQq) GetRedirectUrl(state string) string {
 	url := utils.NewUrlBuilder(a.authorizeUrl).
 		AddParam("response_type", "code").
 		AddParam("client_id", a.config.ClientId).
@@ -36,7 +36,7 @@ func (a *AuthQq) GetRedirectUrl(state string) (string) {
 	return url
 }
 
-//获取token
+// 获取token
 func (a *AuthQq) GetToken(code string) (*result.TokenResult, error) {
 	url := utils.NewUrlBuilder(a.TokenUrl).
 		AddParam("grant_type", "authorization_code").
@@ -50,8 +50,8 @@ func (a *AuthQq) GetToken(code string) (*result.TokenResult, error) {
 	if err != nil {
 		return nil, err
 	}
-	if strings.Index(body,"callback") != -1{
-		body = body[strings.Index(body,"(")+1:strings.LastIndex(body,")")]
+	if strings.Index(body, "callback") != -1 {
+		body = body[strings.Index(body, "(")+1 : strings.LastIndex(body, ")")]
 		m := utils.JsonToMSS(body)
 		if _, ok := m["error"]; ok {
 			return nil, errors.New(m["error_description"])
@@ -67,7 +67,7 @@ func (a *AuthQq) GetToken(code string) (*result.TokenResult, error) {
 	return token, nil
 }
 
-//获取用户openid
+// 获取用户openid
 func (a *AuthQq) GetOpenid(accessToken string) (*result.Credentials, error) {
 	url := utils.NewUrlBuilder(a.openidUrl).
 		AddParam("access_token", accessToken).
@@ -77,7 +77,7 @@ func (a *AuthQq) GetOpenid(accessToken string) (*result.Credentials, error) {
 	if err != nil {
 		return nil, err
 	}
-	body = body[strings.Index(body,"(")+1:strings.LastIndex(body,")")]
+	body = body[strings.Index(body, "(")+1 : strings.LastIndex(body, ")")]
 	m := utils.JsonToMSS(body)
 	if _, ok := m["error"]; ok {
 		return nil, errors.New(m["error_description"])
@@ -89,8 +89,7 @@ func (a *AuthQq) GetOpenid(accessToken string) (*result.Credentials, error) {
 	return credentials, nil
 }
 
-
-//获取用户信息
+// 获取用户信息
 func (a *AuthQq) GetUserInfo(openId string, accessToken string) (*result.UserResult, error) {
 	url := utils.NewUrlBuilder(a.userInfoUrl).
 		AddParam("openid", openId).

@@ -1,10 +1,8 @@
 package oauth
 
-import (
-	"github.com/geiqin/thirdparty/utils"
-)
+import "go-thirdparty/utils"
 
-//基本配置
+// 基本配置
 type AuthConfig struct {
 	ClientId     string
 	ClientSecret string

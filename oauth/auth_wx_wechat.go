@@ -2,11 +2,11 @@ package oauth
 
 import (
 	"errors"
-	"github.com/geiqin/thirdparty/result"
-	"github.com/geiqin/thirdparty/utils"
+	"go-thirdparty/result"
+	"go-thirdparty/utils"
 )
 
-//微信授权登录（第三方应用）
+// 微信授权登录（第三方应用）
 type AuthWxWechat struct {
 	BaseRequest
 }
@@ -22,7 +22,7 @@ func NewAuthWxWechat(conf *AuthConfig) *AuthWxWechat {
 	return authRequest
 }
 
-//获取登录地址
+// 获取登录地址
 func (a *AuthWxWechat) GetRedirectUrl(state string) (*result.CodeResult, error) {
 	url := utils.NewUrlBuilder(a.authorizeUrl).
 		AddParam("response_type", "code").
@@ -39,7 +39,7 @@ func (a *AuthWxWechat) GetRedirectUrl(state string) (*result.CodeResult, error) 
 	return nil, nil
 }
 
-//获取token
+// 获取token
 func (a *AuthWxWechat) GetWebAccessToken(code string) (*result.TokenResult, error) {
 	url := utils.NewUrlBuilder(a.TokenUrl).
 		AddParam("grant_type", "authorization_code").
@@ -72,7 +72,7 @@ func (a *AuthWxWechat) GetWebAccessToken(code string) (*result.TokenResult, erro
 	return token, nil
 }
 
-//通过移动应用获取AccessToken
+// 通过移动应用获取AccessToken
 func (a *AuthWxWechat) GetAppAccessToken(code string) (*result.TokenResult, error) {
 	url := utils.NewUrlBuilder(a.TokenUrl).
 		AddParam("grant_type", "authorization_code").
@@ -104,7 +104,7 @@ func (a *AuthWxWechat) GetAppAccessToken(code string) (*result.TokenResult, erro
 	return token, nil
 }
 
-//获取第三方用户信息
+// 获取第三方用户信息
 func (a *AuthWxWechat) GetUserInfo(accessToken string, openId string) (*result.UserResult, error) {
 	url := utils.NewUrlBuilder(a.userInfoUrl).
 		AddParam("openid", openId).

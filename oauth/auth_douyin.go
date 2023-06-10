@@ -2,11 +2,11 @@ package oauth
 
 import (
 	"errors"
-	"github.com/geiqin/thirdparty/result"
-	"github.com/geiqin/thirdparty/utils"
+	"go-thirdparty/result"
+	"go-thirdparty/utils"
 )
 
-//抖音授权登录
+// 抖音授权登录
 type AuthDouYin struct {
 	BaseRequest
 }
@@ -22,7 +22,7 @@ func NewAuthDouYin(conf *AuthConfig) *AuthDouYin {
 	return authRequest
 }
 
-//获取登录地址
+// 获取登录地址
 func (a *AuthDouYin) GetRedirectUrl(state string) (*result.CodeResult, error) {
 	url := utils.NewUrlBuilder(a.authorizeUrl).
 		AddParam("response_type", "code").
@@ -38,7 +38,7 @@ func (a *AuthDouYin) GetRedirectUrl(state string) (*result.CodeResult, error) {
 	return nil, nil
 }
 
-//获取token
+// 获取token
 func (a *AuthDouYin) GetToken(code string) (*result.TokenResult, error) {
 	url := utils.NewUrlBuilder(a.TokenUrl).
 		AddParam("grant_type", "authorization_code").
@@ -66,7 +66,7 @@ func (a *AuthDouYin) GetToken(code string) (*result.TokenResult, error) {
 	return token, nil
 }
 
-//获取第三方用户信息
+// 获取第三方用户信息
 func (a *AuthDouYin) GetUserInfo(openId string, accessToken string) (*result.UserResult, error) {
 	url := utils.NewUrlBuilder(a.TokenUrl).
 		AddParam("open_id", openId).

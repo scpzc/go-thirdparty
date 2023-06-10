@@ -3,12 +3,12 @@ package oauth
 import (
 	"encoding/json"
 	"errors"
-	"github.com/geiqin/thirdparty/result"
-	"github.com/geiqin/thirdparty/utils"
 	"github.com/xlstudio/wxbizdatacrypt"
+	"go-thirdparty/result"
+	"go-thirdparty/utils"
 )
 
-//微信小程序授权登录（微信小程序）
+// 微信小程序授权登录（微信小程序）
 type AuthWxMini struct {
 	BaseRequest
 }
@@ -24,7 +24,7 @@ func NewAuthWxMini(conf *AuthConfig) *AuthWxMini {
 	return authRequest
 }
 
-//获取小程序会话token，一般返回 sessionKey OpenId UnionId
+// 获取小程序会话token，一般返回 sessionKey OpenId UnionId
 func (a *AuthWxMini) GetSessionKey(code string) (*result.TokenResult, error) {
 	url := utils.NewUrlBuilder(a.TokenUrl).
 		AddParam("grant_type", "authorization_code").
@@ -52,7 +52,7 @@ func (a *AuthWxMini) GetSessionKey(code string) (*result.TokenResult, error) {
 	return token, nil
 }
 
-//获取小程序全局唯一后台接口调用凭据（access_token）
+// 获取小程序全局唯一后台接口调用凭据（access_token）
 func (a *AuthWxMini) GetAccessToken() (*result.TokenResult, error) {
 	url := utils.NewUrlBuilder(a.AccessTokenUrl).
 		AddParam("grant_type", "client_credential").
@@ -75,7 +75,7 @@ func (a *AuthWxMini) GetAccessToken() (*result.TokenResult, error) {
 	return token, nil
 }
 
-//获取用户信息
+// 获取用户信息
 func (a *AuthWxMini) GetUserInfo(sessionKey string, encryptedData string, iv string) (*result.UserResult, error) {
 	pc := wxbizdatacrypt.WxBizDataCrypt{AppId: a.config.ClientId, SessionKey: sessionKey}
 	ret, err := pc.Decrypt(encryptedData, iv, true) //第三个参数解释： 需要返回 JSON 数据类型时 使用 true, 需要返回 map 数据类型时 使用 false
@@ -104,7 +104,7 @@ func (a *AuthWxMini) GetUserInfo(sessionKey string, encryptedData string, iv str
 	return user, nil
 }
 
-//获取手机号码
+// 获取手机号码
 func (a *AuthWxMini) GetMobileNumber(sessionKey string, encryptedData string, iv string) (*result.WxMobileResult, error) {
 	pc := wxbizdatacrypt.WxBizDataCrypt{AppId: a.config.ClientId, SessionKey: sessionKey}
 	ret, err := pc.Decrypt(encryptedData, iv, true) //第三个参数解释： 需要返回 JSON 数据类型时 使用 true, 需要返回 map 数据类型时 使用 false
