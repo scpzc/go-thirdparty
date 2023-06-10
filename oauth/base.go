@@ -1,6 +1,6 @@
 package oauth
 
-import "go-thirdparty/utils"
+import "github.com/scpzc/go-thirdparty/utils"
 
 // 基本配置
 type AuthConfig struct {

@@ -1,6 +1,6 @@
 package mobile
 
-import "go-thirdparty/oauth"
+import "github.com/scpzc/go-thirdparty/oauth"
 
 // 手机短信登录
 type AuthSms struct {
