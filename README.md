@@ -10,7 +10,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/geiqin/thirdparty/oauth"
+	"github.com/scpzc/go-thirdparty/oauth"
 )
 
 func main()  {
