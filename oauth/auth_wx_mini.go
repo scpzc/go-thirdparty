@@ -33,7 +33,7 @@ func (a *AuthWxMini) GetSessionKey(code string) (*result.TokenResult, error) {
 		AddParam("js_code", code).
 		Build()
 
-	body, err := utils.Post(url)
+	body, err := utils.Post(url,nil)
 
 	if err != nil {
 		return nil, err
@@ -60,7 +60,7 @@ func (a *AuthWxMini) GetAccessToken() (*result.TokenResult, error) {
 		AddParam("secret", a.config.ClientSecret).
 		Build()
 
-	body, err := utils.Post(url)
+	body, err := utils.Post(url,nil)
 	if err != nil {
 		return nil, err
 	}

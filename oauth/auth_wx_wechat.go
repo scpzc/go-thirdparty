@@ -32,7 +32,7 @@ func (a *AuthWxWechat) GetRedirectUrl(state string) (*result.CodeResult, error) 
 		AddParam("state", a.GetState(state)).
 		Build()
 
-	_, err := utils.Post(url)
+	_, err := utils.Post(url,nil)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (a *AuthWxWechat) GetWebAccessToken(code string) (*result.TokenResult, erro
 		AddParam("redirect_uri", a.config.RedirectUrl).
 		Build()
 
-	body, err := utils.Post(url)
+	body, err := utils.Post(url,nil)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func (a *AuthWxWechat) GetAppAccessToken(code string) (*result.TokenResult, erro
 		AddParam("secret", a.config.ClientSecret).
 		Build()
 
-	body, err := utils.Post(url)
+	body, err := utils.Post(url,nil)
 	if err != nil {
 		return nil, err
 	}

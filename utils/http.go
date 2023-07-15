@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func Post(url string) (string, error) {
+func Post(url string,data map[string]any) (string, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {

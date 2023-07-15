@@ -31,7 +31,7 @@ func (a *AuthDouYin) GetRedirectUrl(state string) (*result.CodeResult, error) {
 		AddParam("state", a.GetState(state)).
 		Build()
 
-	_, err := utils.Post(url)
+	_, err := utils.Post(url,nil)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (a *AuthDouYin) GetToken(code string) (*result.TokenResult, error) {
 		AddParam("redirect_uri", a.config.RedirectUrl).
 		Build()
 
-	body, err := utils.Post(url)
+	body, err := utils.Post(url,nil)
 	if err != nil {
 		return nil, err
 	}
